@@ -19,9 +19,29 @@ public class Player : MonoBehaviour, IFallingObject
     private int maxHealth = 100;
 
     private UIManager ui;
+    private Animator animator;
     private Jump jump;
 
+    private bool moving;
+
     public int Health { get; private set; }
+
+    public bool Moving
+    {
+        get
+        {
+            return moving;
+        }
+        set
+        {
+            moving = value;
+            if (value)
+                animator.Play("Walk");
+            else
+                animator.Play("Idle");
+                //animator.SetBool("GoToIdle", true);
+        }
+    }
 
     public Vector3 Extents
     {
@@ -35,6 +55,7 @@ public class Player : MonoBehaviour, IFallingObject
     void Start()
     {
         ui = FindObjectOfType<UIManager>();
+        animator = GetComponent<Animator>();
         jump = GetComponent<Jump>();
         respawnPoint = transform.position;
         Health = maxHealth;
@@ -73,7 +94,15 @@ public class Player : MonoBehaviour, IFallingObject
         }
 
         moveDirection.Normalize();
-        Move(moveDirection);
+
+        if (moveDirection != Vector3.zero)
+        {
+            Move(moveDirection);
+        }
+        else
+        {
+            Moving = false;
+        }
     }
 
     private void UpdateRotation()
@@ -96,6 +125,11 @@ public class Player : MonoBehaviour, IFallingObject
     private void Move(Vector3 direction)
     {
         transform.position += direction * moveSpeed * Time.deltaTime;
+
+        if (!Moving)
+        {
+            Moving = true;
+        }
     }
 
     private void UpdateDebugInput()
