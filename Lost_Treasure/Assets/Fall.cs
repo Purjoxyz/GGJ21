@@ -5,10 +5,14 @@ using UnityEngine;
 public class Fall : MonoBehaviour
 {
     public float gravity = 1;
+    public float timeToMaxGravity = 1;
     public float riseSpeed = 1;
     public float fallRiseDeadZone = 0.1f;
 
     private float rayCastDistance;
+    private float currentGravity;
+    private float elapsedFallTime;
+
     public bool IsOnFloor
     {
         get;private set;
@@ -35,16 +39,19 @@ public class Fall : MonoBehaviour
         float distanceToFloor = CalculateDistanceToFloor();
         if (distanceToFloor < 0 || distanceToFloor > rayCastDistance + 0.5f * fallRiseDeadZone)
         {
-            FallDown();
+            RiseOrFall(rise: false);
             IsOnFloor = false;
         }
         else if (distanceToFloor < rayCastDistance - 0.5f * fallRiseDeadZone)
         {
-            RiseUp();
+            RiseOrFall(rise: true);
             IsOnFloor = true;
         }
-        else 
-        { IsOnFloor = true; }
+        else if (!IsOnFloor)
+        {
+            IsOnFloor = true;
+            elapsedFallTime = 0;
+        }
     }
 
     private float CalculateDistanceToFloor()
@@ -64,17 +71,16 @@ public class Fall : MonoBehaviour
         }
     }
 
-    private void FallDown()
+    private void RiseOrFall(bool rise)
     {
         Vector3 newPosition = transform.position;
-        newPosition.y += -1 * gravity * Time.deltaTime;
+        newPosition.y += (rise ? riseSpeed : -1 * currentGravity) * Time.deltaTime;
         transform.position = newPosition;
-    }
 
-    private void RiseUp()
-    {
-        Vector3 newPosition = transform.position;
-        newPosition.y += riseSpeed * Time.deltaTime;
-        transform.position = newPosition;
+        if (!rise && elapsedFallTime < timeToMaxGravity)
+        {
+            elapsedFallTime += Time.deltaTime;
+            currentGravity = Mathf.Lerp(0, gravity, elapsedFallTime / timeToMaxGravity);
+        }
     }
 }

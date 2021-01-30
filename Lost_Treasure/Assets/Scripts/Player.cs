@@ -12,9 +12,12 @@ public class Player : MonoBehaviour
     [SerializeField, Tooltip("Player rotation speed")]
     private float rotationSpeed = 1;
 
+    private Jump jump;
+
     // Start is called before the first frame update
     void Start()
     {
+        jump = GetComponent<Jump>();
         respawnPoint = transform.position;
     }
 
@@ -81,6 +84,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.R))
         {
             transform.position = respawnPoint;
+            jump.ResetJump();
         }
     }
 }
