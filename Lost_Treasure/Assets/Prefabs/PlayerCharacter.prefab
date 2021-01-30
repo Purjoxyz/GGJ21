@@ -439,7 +439,7 @@ MonoBehaviour:
   objCollider: {fileID: 6981125313875192534}
   moveSpeed: 5
   rotationSpeed: 200
-  maxHealth: 100
+  maxHealth: 3
 --- !u!114 &6981125314285220386
 MonoBehaviour:
   m_ObjectHideFlags: 0

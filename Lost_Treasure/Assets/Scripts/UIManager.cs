@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public HealthMeter healthMeter;
     public UIText healthText;
 
     private Player player;
@@ -23,6 +24,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHealth()
     {
+        healthMeter.UpdateHearts(player.Health);
         healthText.UpdateText("Health: " + player.Health.ToString());
     }
 }
