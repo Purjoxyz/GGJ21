@@ -11,7 +11,8 @@ public class Jump : MonoBehaviour
     private Fall fall;
     private float elapsedJumpTime;
     private float currentJumpForce;
-    private bool isJumping;
+
+    public bool IsJumping { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -22,13 +23,13 @@ public class Jump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isJumping && Input.GetKeyDown(KeyCode.Space) && fall.IsOnFloor )
+        if (!IsJumping && Input.GetKeyDown(KeyCode.Space) && fall.IsOnFloor )
         {
-            isJumping = true;
+            IsJumping = true;
             fall.Active = false;
             currentJumpForce = maxJumpForce;
         }
-        if (isJumping)
+        if (IsJumping)
         {
             elapsedJumpTime += Time.deltaTime;
             if (elapsedJumpTime >= jumpTime)
@@ -52,7 +53,7 @@ public class Jump : MonoBehaviour
 
     public void ResetJump()
     {
-        isJumping = false;
+        IsJumping = false;
         elapsedJumpTime = 0;
         fall.Active = true;
     }

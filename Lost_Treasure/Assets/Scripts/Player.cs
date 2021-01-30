@@ -20,6 +20,7 @@ public class Player : MonoBehaviour, IFallingObject
 
     private UIManager ui;
     private Animator animator;
+    private Fall fall;
     private Jump jump;
 
     private bool moving;
@@ -56,6 +57,7 @@ public class Player : MonoBehaviour, IFallingObject
     {
         ui = FindObjectOfType<UIManager>();
         animator = GetComponent<Animator>();
+        fall = GetComponent<Fall>();
         jump = GetComponent<Jump>();
         respawnPoint = transform.position;
         Health = maxHealth;
@@ -156,7 +158,6 @@ public class Player : MonoBehaviour, IFallingObject
             if (Health <= 0)
             {
                 Die();
-                Health = 0;
                 return true;
             }
 
@@ -172,5 +173,13 @@ public class Player : MonoBehaviour, IFallingObject
     private void Die()
     {
         Respawn();
+    }
+
+    private void PlayWalkSound()
+    {
+        if (fall.IsOnFloor && !jump.IsJumping)
+        {
+            SFXPlayer.Instance.Play(Sound.Walk);
+        }
     }
 }
