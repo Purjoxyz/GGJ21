@@ -449,7 +449,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPoint: {x: 0, y: 0, z: 0}
   moveSpeed: 5
-  rotationSpeed: 100
+  rotationSpeed: 200
 --- !u!114 &6981125314285220386
 MonoBehaviour:
   m_ObjectHideFlags: 0
