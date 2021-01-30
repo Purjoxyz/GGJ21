@@ -14,12 +14,13 @@ GameObject:
   - component: {fileID: 2562915875797953226}
   - component: {fileID: 3254871888042812479}
   - component: {fileID: 3254871888042812478}
-  m_Layer: 0
+  - component: {fileID: 182279993}
+  m_Layer: 12
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4639024429548131627
 Transform:
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4187839084477670553}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.102, z: 0}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1.3441, y: 0.16794872, z: 1.3441}
   m_Children: []
   m_Father: {fileID: 1150726676859687952}
@@ -93,8 +94,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 4, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!198 &3254871888042812479
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4817,6 +4818,20 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &182279993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4187839084477670553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bad4275740924498f69eea3395e04c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRespawnPoint: 1
+  respawnPointOffset: {x: 0, y: -0.4, z: 0}
 --- !u!1 &6617702760797131150
 GameObject:
   m_ObjectHideFlags: 0
@@ -4831,7 +4846,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1150726676859687952
 Transform:
@@ -4930,6 +4945,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: pool
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 733fd20e546dd4d46aefc1085b6e3e67,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 733fd20e546dd4d46aefc1085b6e3e67, type: 3}

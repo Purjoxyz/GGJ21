@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Hazard : MonoBehaviour
 {
-    public int damage=1;
-    private void OnCollisionEnter(Collision other)
+    public int damage = 1;
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {

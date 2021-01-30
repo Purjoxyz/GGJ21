@@ -23,9 +23,25 @@ public class Player : MonoBehaviour, IFallingObject
     private Fall fall;
     private Jump jump;
 
+    private int health;
     private bool moving;
 
-    public int Health { get; private set; }
+    public int Health
+    {
+        get
+        {
+            return health;
+        }
+        set
+        {
+            health = value;
+
+            if (ui != null)
+            {
+                ui.UpdateHealth();
+            }
+        }
+    }
 
     public bool Moving
     {
@@ -147,7 +163,17 @@ public class Player : MonoBehaviour, IFallingObject
         transform.position = respawnPoint;
         jump.ResetJump();
         Health = maxHealth;
-        ui.UpdateHealth();
+    }
+
+    public void HealToFull()
+    {
+        Health = maxHealth;
+    }
+
+    public void HealToFull(Vector3 newRespawnPoint)
+    {
+        HealToFull();
+        respawnPoint = newRespawnPoint;
     }
 
     public bool TakeDamage(int damage)
@@ -159,11 +185,6 @@ public class Player : MonoBehaviour, IFallingObject
             {
                 Die();
                 return true;
-            }
-
-            if (ui != null)
-            {
-                ui.UpdateHealth();
             }
         }
 
