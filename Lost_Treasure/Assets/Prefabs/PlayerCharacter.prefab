@@ -462,7 +462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a6b5d7f7d1d9a469d77cd8e3cc4678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 3
+  gravity: 8
+  timeToMaxGravity: 0.3
   riseSpeed: 5
   fallRiseDeadZone: 0.2
 --- !u!114 &1319048484
@@ -477,8 +478,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0489b8bd7f4f3a498ac3158c9b55c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 5
-  jumpTime: 1
+  maxJumpForce: 10
+  minJumpForce: 0
+  jumpTime: 0.4
 --- !u!1 &6981125314297420694
 GameObject:
   m_ObjectHideFlags: 0
