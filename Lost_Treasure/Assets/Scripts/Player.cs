@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IFallingObject
 {
     public Vector3 respawnPoint;
+
+    [SerializeField, Tooltip("The player character's main collider")]
+    private Collider objCollider;
 
     [SerializeField, Tooltip("Player movement speed")]
     private float moveSpeed = 1;
@@ -13,6 +16,14 @@ public class Player : MonoBehaviour
     private float rotationSpeed = 1;
 
     private Jump jump;
+
+    public Vector3 Extents
+    {
+        get
+        {
+            return objCollider.bounds.extents;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()

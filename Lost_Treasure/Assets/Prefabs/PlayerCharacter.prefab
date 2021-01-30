@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6981125313440742323}
   - component: {fileID: 6981125313440742332}
   - component: {fileID: 6981125313440742333}
-  - component: {fileID: 6981125313440742322}
   m_Layer: 9
   m_Name: Top
   m_TagString: Untagged
@@ -80,19 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &6981125313440742322
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6981125313440742320}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6981125313753695964
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +280,6 @@ GameObject:
   - component: {fileID: 6981125314054412819}
   - component: {fileID: 6981125314054412828}
   - component: {fileID: 6981125314054412829}
-  - component: {fileID: 6981125314054412818}
   m_Layer: 9
   m_Name: Rim
   m_TagString: Untagged
@@ -363,20 +348,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &6981125314054412818
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6981125314054412816}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &6981125314285220390
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,6 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnPoint: {x: 0, y: 0, z: 0}
+  objCollider: {fileID: 6981125313875192534}
   moveSpeed: 5
   rotationSpeed: 200
 --- !u!114 &6981125314285220386
@@ -804,7 +776,6 @@ GameObject:
   - component: {fileID: 6981125314797202286}
   - component: {fileID: 6981125314797202283}
   - component: {fileID: 6981125314797202280}
-  - component: {fileID: 6981125314797202281}
   m_Layer: 9
   m_Name: Nose
   m_TagString: Untagged
@@ -873,16 +844,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &6981125314797202281
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6981125314797202287}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

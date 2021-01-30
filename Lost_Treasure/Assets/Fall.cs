@@ -9,13 +9,14 @@ public class Fall : MonoBehaviour
     public float riseSpeed = 1;
     public float fallRiseDeadZone = 0.1f;
 
+    private IFallingObject fallingObj;
     private float rayCastDistance;
     private float currentGravity;
     private float elapsedFallTime;
 
     public bool IsOnFloor
     {
-        get;private set;
+        get; private set;
     }
 
     public bool Active
@@ -26,6 +27,7 @@ public class Fall : MonoBehaviour
 
     void Start()
     {
+        fallingObj = GetComponent<IFallingObject>();
         rayCastDistance = 1f;
         Active = true;
     }
@@ -56,19 +58,41 @@ public class Fall : MonoBehaviour
 
     private float CalculateDistanceToFloor()
     {
-        Physics.Raycast(transform.position + Vector3.up * rayCastDistance, Vector3.down,
-            out RaycastHit hitInfo, rayCastDistance + fallRiseDeadZone, LayerMask.GetMask("Floor"));
-        if (hitInfo.collider != null)
-        {
-            //Debug.Log("Osui!");
-            //Debug.Log(hitInfo.distance);
+        RaycastHit[] hits = new RaycastHit[fallingObj == null ? 1 : 5];
 
-            return hitInfo.distance;
-        }
-        else
+        for (int i = 0; i < hits.Length; i++)
         {
-            return -1;
+            Vector3 origin = transform.position + Vector3.up * rayCastDistance;
+            switch (i)
+            {
+                // case 0 excluded because it's already OK
+                case 1:
+                    origin += new Vector3(fallingObj.Extents.x, 0, fallingObj.Extents.z);
+                    break;
+                case 2:
+                    origin += new Vector3(fallingObj.Extents.x, 0, -1 * fallingObj.Extents.z);
+                    break;
+                case 3:
+                    origin += new Vector3(-1 * fallingObj.Extents.x, 0,  fallingObj.Extents.z);
+                    break;
+                case 4:
+                    origin += new Vector3(-1 * fallingObj.Extents.x, 0, -1 * fallingObj.Extents.z);
+                    break;
+            }
+
+            Physics.Raycast(origin, Vector3.down, out hits[i], rayCastDistance + fallRiseDeadZone, LayerMask.GetMask("Floor"));
+
+            if (hits[i].collider != null)
+            {
+                //Debug.Log("Osui!");
+                //Debug.Log(hitInfo.distance);
+
+                return hits[i].distance;
+            }
         }
+
+        // No raycast hits
+        return -1;
     }
 
     private void RiseOrFall(bool rise)
