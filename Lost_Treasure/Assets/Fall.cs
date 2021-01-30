@@ -73,7 +73,7 @@ public class Fall : MonoBehaviour
                     origin += new Vector3(fallingObj.Extents.x, 0, -1 * fallingObj.Extents.z);
                     break;
                 case 3:
-                    origin += new Vector3(-1 * fallingObj.Extents.x, 0,  fallingObj.Extents.z);
+                    origin += new Vector3(-1 * fallingObj.Extents.x, 0, fallingObj.Extents.z);
                     break;
                 case 4:
                     origin += new Vector3(-1 * fallingObj.Extents.x, 0, -1 * fallingObj.Extents.z);

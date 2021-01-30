@@ -15,7 +15,13 @@ public class Player : MonoBehaviour, IFallingObject
     [SerializeField, Tooltip("Player rotation speed")]
     private float rotationSpeed = 1;
 
+    [SerializeField, Tooltip("Player's maximum health")]
+    private int maxHealth = 100;
+
+    private UIManager ui;
     private Jump jump;
+
+    public int Health { get; private set; }
 
     public Vector3 Extents
     {
@@ -28,8 +34,10 @@ public class Player : MonoBehaviour, IFallingObject
     // Start is called before the first frame update
     void Start()
     {
+        ui = FindObjectOfType<UIManager>();
         jump = GetComponent<Jump>();
         respawnPoint = transform.position;
+        Health = maxHealth;
     }
 
     // Update is called once per frame
@@ -94,8 +102,41 @@ public class Player : MonoBehaviour, IFallingObject
     {
         if (Input.GetKey(KeyCode.R))
         {
-            transform.position = respawnPoint;
-            jump.ResetJump();
+            Respawn();
         }
+    }
+
+    private void Respawn()
+    {
+        transform.position = respawnPoint;
+        jump.ResetJump();
+        Health = maxHealth;
+        ui.UpdateHealth();
+    }
+
+    public bool TakeDamage(int damage)
+    {
+        if (Health > 0)
+        {
+            Health -= damage;
+            if (Health <= 0)
+            {
+                Die();
+                Health = 0;
+                return true;
+            }
+
+            if (ui != null)
+            {
+                ui.UpdateHealth();
+            }
+        }
+
+        return false;
+    }
+
+    private void Die()
+    {
+        Respawn();
     }
 }
