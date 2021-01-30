@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2968074906232945922}
   - component: {fileID: 2968074906232945923}
   - component: {fileID: 2968074906232945934}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hazardous cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221051709898ee84389558342bb7b585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 1
 --- !u!54 &2968074906232945934
 Rigidbody:
   m_ObjectHideFlags: 0
