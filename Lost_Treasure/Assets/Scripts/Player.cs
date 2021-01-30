@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public Vector3 respawnPoint;
+
     [SerializeField, Tooltip("Player movement speed")]
     private float moveSpeed = 1;
 
@@ -13,12 +15,13 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        respawnPoint = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateDebugInput();
         UpdateMove();
         UpdateRotation();
     }
@@ -71,5 +74,13 @@ public class Player : MonoBehaviour
     private void Move(Vector3 direction)
     {
         transform.position += direction * moveSpeed * Time.deltaTime;
+    }
+
+    private void UpdateDebugInput()
+    {
+        if (Input.GetKey(KeyCode.R))
+        {
+            transform.position = respawnPoint;
+        }
     }
 }

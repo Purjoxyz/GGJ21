@@ -5,23 +5,60 @@ using UnityEngine;
 public class Fall : MonoBehaviour
 {
     public float gravity = 1;
+    public float riseSpeed = 1;
+    public float fallRiseDeadZone = 0.1f;
+
+    private float rayCastDistance;
 
     // Start is called before the first frame update
-    
+
     void Start()
     {
-        
+        rayCastDistance = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Physics.Raycast(transform.position + Vector3.up, Vector3.down,
-            out RaycastHit hitInfo, 1.1f, LayerMask.GetMask("Floor"));
+        float distanceToFloor = CalculateDistanceToFloor();
+        if (distanceToFloor < 0 || distanceToFloor > rayCastDistance + 0.5f * fallRiseDeadZone)
+        {
+            FallDown();
+        }
+        else if (distanceToFloor < rayCastDistance - 0.5f * fallRiseDeadZone)
+        {
+            RiseUp();
+        }
+    }
+
+    private float CalculateDistanceToFloor()
+    {
+        Physics.Raycast(transform.position + Vector3.up * rayCastDistance, Vector3.down,
+            out RaycastHit hitInfo, rayCastDistance + fallRiseDeadZone, LayerMask.GetMask("Floor"));
         if (hitInfo.collider != null)
         {
             //Debug.Log("Osui!");
-            Debug.Log(hitInfo.distance);
+            //Debug.Log(hitInfo.distance);
+
+            return hitInfo.distance;
         }
+        else
+        {
+            return -1;
+        }
+    }
+
+    private void FallDown()
+    {
+        Vector3 newPosition = transform.position;
+        newPosition.y += -1 * gravity * Time.deltaTime;
+        transform.position = newPosition;
+    }
+
+    private void RiseUp()
+    {
+        Vector3 newPosition = transform.position;
+        newPosition.y += riseSpeed * Time.deltaTime;
+        transform.position = newPosition;
     }
 }
