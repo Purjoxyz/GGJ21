@@ -389,6 +389,7 @@ GameObject:
   - component: {fileID: 6981125314285220384}
   - component: {fileID: 6981125314285220387}
   - component: {fileID: 6981125314285220386}
+  - component: {fileID: 1319048484}
   m_Layer: 9
   m_Name: PlayerCharacter
   m_TagString: Untagged
@@ -446,6 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c5f1ae92bb48148ab2436edbee58b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  respawnPoint: {x: 0, y: 0, z: 0}
   moveSpeed: 5
   rotationSpeed: 100
 --- !u!114 &6981125314285220386
@@ -460,7 +462,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6a6b5d7f7d1d9a469d77cd8e3cc4678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: 1
+  gravity: 3
+  riseSpeed: 5
+  fallRiseDeadZone: 0.2
+--- !u!114 &1319048484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6981125314285220390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0489b8bd7f4f3a498ac3158c9b55c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 5
+  jumpTime: 1
 --- !u!1 &6981125314297420694
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,26 +9,42 @@ public class Fall : MonoBehaviour
     public float fallRiseDeadZone = 0.1f;
 
     private float rayCastDistance;
+    public bool IsOnFloor
+    {
+        get;private set;
+    }
 
+    public bool Active
+    {
+        get; set;
+    }
     // Start is called before the first frame update
 
     void Start()
     {
         rayCastDistance = 1f;
+        Active = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!Active)
+            return;
+
         float distanceToFloor = CalculateDistanceToFloor();
         if (distanceToFloor < 0 || distanceToFloor > rayCastDistance + 0.5f * fallRiseDeadZone)
         {
             FallDown();
+            IsOnFloor = false;
         }
         else if (distanceToFloor < rayCastDistance - 0.5f * fallRiseDeadZone)
         {
             RiseUp();
+            IsOnFloor = true;
         }
+        else 
+        { IsOnFloor = true; }
     }
 
     private float CalculateDistanceToFloor()
