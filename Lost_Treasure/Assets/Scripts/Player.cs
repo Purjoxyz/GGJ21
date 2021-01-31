@@ -200,7 +200,7 @@ public class Player : MonoBehaviour, IFallingObject
     {
         if (fall.IsOnFloor && !jump.IsJumping)
         {
-            SFXPlayer.Instance.Play(Sound.Walk);
+            SFXPlayer.Instance.Play(Sound.Walk, volumeFactor: 0.4f, pitch: Random.Range(0.85f, 1.15f));
         }
     }
 }

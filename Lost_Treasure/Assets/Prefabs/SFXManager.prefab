@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - {fileID: 8300000, guid: d54d341b5ac75c6428a6df96ce468fbe, type: 3}
+  - {fileID: 8300000, guid: f5a37fe351cd54f43be0df37259dc25d, type: 3}
   audioSrcPrefab: {fileID: 4061044021564396447, guid: 6231ab8fe0d55b2448d4471e9d14ca27,
     type: 3}
   volume: 1

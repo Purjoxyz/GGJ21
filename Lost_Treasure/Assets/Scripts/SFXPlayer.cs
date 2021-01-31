@@ -20,7 +20,8 @@ public enum Sound
     // in this specific order for the right sound
     // to be played at the right time
 
-    Walk = 0
+    Walk = 0,
+    Heal = 1
 }
 
 public class SFXPlayer : MonoBehaviour

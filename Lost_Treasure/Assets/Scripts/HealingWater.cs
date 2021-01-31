@@ -23,6 +23,8 @@ public class HealingWater : MonoBehaviour
                 {
                     player.HealToFull();
                 }
+
+                SFXPlayer.Instance.Play(Sound.Heal, volumeFactor: 0.2f);
             }
         }
     }
