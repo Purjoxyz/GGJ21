@@ -31,8 +31,10 @@ public class Player : MonoBehaviour, IFallingObject
     private Jump jump;
 
     private int health;
+    private bool helpHidden;
     private bool moving;
     private float elapsedDeathTime;
+    //private Vector3 oldPosition;
 
     public int Health
     {
@@ -169,11 +171,21 @@ public class Player : MonoBehaviour, IFallingObject
             rotationDirection += Vector3.up;
         }
 
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + rotationDirection * rotationSpeed * Time.deltaTime);
+        if (rotationDirection != Vector3.zero)
+        {
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + rotationDirection * rotationSpeed * Time.deltaTime);
+
+            if (!helpHidden)
+            {
+                helpHidden = true;
+                ui.HideInstructions();
+            }
+        }
     }
 
     private void Move(Vector3 direction)
     {
+        //oldPosition = transform.position;
         transform.position += direction * moveSpeed * Time.deltaTime;
 
         if (!Moving)
@@ -181,6 +193,11 @@ public class Player : MonoBehaviour, IFallingObject
             Moving = true;
         }
     }
+
+    //public void CollideWithWall(GameObject wall)
+    //{
+    //    transform.position = new Vector3(oldPosition.x, transform.position.y, oldPosition.z);
+    //}
 
     private void UpdateDebugInput()
     {

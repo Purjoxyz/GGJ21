@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2968074906232945933}
   - component: {fileID: 2968074906232945922}
   - component: {fileID: 2968074906232945923}
+  - component: {fileID: 6883283414731675142}
   m_Layer: 11
   m_Name: Hazardous cube
   m_TagString: Untagged
@@ -107,3 +108,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+--- !u!114 &6883283414731675142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2968074906232945920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f065735f6d88464eb3478796c3dd0ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypoints: []
+  travelSpeed: 1
+  tolerance: 1
