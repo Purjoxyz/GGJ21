@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public HealthMeter healthMeter;
     public UIText healthText;
+    public GameObject win;
 
     private Player player;
 
@@ -26,5 +27,11 @@ public class UIManager : MonoBehaviour
     {
         healthMeter.UpdateHearts(player.Health);
         healthText.UpdateText("Health: " + player.Health.ToString());
+    }
+
+    public void ShowWinScreen()
+    {
+        Debug.Log("You win!");
+        win.gameObject.SetActive(true);
     }
 }

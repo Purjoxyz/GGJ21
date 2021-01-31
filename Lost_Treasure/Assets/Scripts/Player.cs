@@ -111,6 +111,11 @@ public class Player : MonoBehaviour, IFallingObject
             {
                 Die();
             }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                EndGame();
+            }
         }
     }
 
@@ -277,5 +282,15 @@ public class Player : MonoBehaviour, IFallingObject
         {
             SFXPlayer.Instance.Play(Sound.Walk, volumeFactor: 0.4f, pitch: Random.Range(0.85f, 1.15f));
         }
+    }
+
+    public void WinGame()
+    {
+        ui.ShowWinScreen();
+    }
+
+    public void EndGame()
+    {
+        Application.Quit();
     }
 }
