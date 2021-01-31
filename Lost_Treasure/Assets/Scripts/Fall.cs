@@ -13,7 +13,7 @@ public class Fall : MonoBehaviour
     private float rayCastDistance;
     private float currentGravity;
     private float elapsedFallTime;
-
+    private int layerMask;
     public bool IsOnFloor
     {
         get; private set;
@@ -30,6 +30,8 @@ public class Fall : MonoBehaviour
         fallingObj = GetComponent<IFallingObject>();
         rayCastDistance = 1f;
         Active = true;
+        layerMask = LayerMask.GetMask("Floor") | LayerMask.GetMask("Hazard");
+        
     }
 
     // Update is called once per frame
@@ -80,7 +82,7 @@ public class Fall : MonoBehaviour
                     break;
             }
 
-            Physics.Raycast(origin, Vector3.down, out hits[i], rayCastDistance + fallRiseDeadZone, LayerMask.GetMask("Floor"));
+            Physics.Raycast(origin, Vector3.down, out hits[i], rayCastDistance + fallRiseDeadZone, layerMask);
 
             if (hits[i].collider != null)
             {

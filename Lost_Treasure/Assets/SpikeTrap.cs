@@ -34,6 +34,7 @@ public class SpikeTrap : MonoBehaviour
     {
         lastSwitchTime = Time.time;
         state = State.Raising;
+        hitboxGameObject.SetActive(true);
     }
     void StartLowering()
     {
@@ -51,6 +52,7 @@ public class SpikeTrap : MonoBehaviour
             if (scale.y == LoweredSpikeHeight)
             {
                 Invoke("StartRaising", interval);
+                colliderGameObject.SetActive(false);
                 state = State.Lowered;
             }
         }
@@ -62,6 +64,8 @@ public class SpikeTrap : MonoBehaviour
             if (scale.y == SpikeHeight)
             {
                 Invoke("StartLowering", raiseWaitTime);
+                colliderGameObject.SetActive(true);
+                hitboxGameObject.SetActive(false);
                 state = State.Raised;
             }
         }
