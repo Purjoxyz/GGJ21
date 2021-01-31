@@ -6,25 +6,33 @@ public class Player : MonoBehaviour, IFallingObject
 {
     public Vector3 respawnPoint;
 
-    [SerializeField, Tooltip("The player character's main collider")]
+    [SerializeField, Tooltip("The player character's main collider.")]
     private Collider objCollider;
 
-    [SerializeField, Tooltip("Player movement speed")]
+    [SerializeField, Tooltip("Player movement speed.")]
     private float moveSpeed = 1;
 
-    [SerializeField, Tooltip("Player rotation speed")]
+    [SerializeField, Tooltip("Player rotation speed.")]
     private float rotationSpeed = 1;
 
-    [SerializeField, Tooltip("Player's maximum health")]
+    [SerializeField, Tooltip("Player's maximum health.")]
     private int maxHealth = 100;
 
+    [SerializeField, Tooltip("The lowest y-position under which the player dies.")]
+    private float minGameWorldY = -50;
+
+    [SerializeField, Tooltip("Time after death until respawn.")]
+    private int deathTime = 1;
+
     private UIManager ui;
+    private Renderer[] renderers;
     private Animator animator;
     private Fall fall;
     private Jump jump;
 
     private int health;
     private bool moving;
+    private float elapsedDeathTime;
 
     public int Health
     {
@@ -42,6 +50,10 @@ public class Player : MonoBehaviour, IFallingObject
             }
         }
     }
+
+    public bool IsDead { get { return Health == 0; } }
+
+    public bool JustDied { get; private set; }
 
     public bool Moving
     {
@@ -72,6 +84,7 @@ public class Player : MonoBehaviour, IFallingObject
     void Start()
     {
         ui = FindObjectOfType<UIManager>();
+        renderers = GetComponentsInChildren<Renderer>();
         animator = GetComponent<Animator>();
         fall = GetComponent<Fall>();
         jump = GetComponent<Jump>();
@@ -82,9 +95,23 @@ public class Player : MonoBehaviour, IFallingObject
     // Update is called once per frame
     void Update()
     {
-        UpdateDebugInput();
-        UpdateMove();
-        UpdateRotation();
+        if (IsDead)
+        {
+            UpdateDeath();
+        }
+        else
+        {
+#if DEBUG
+            UpdateDebugInput();
+#endif
+            UpdateMove();
+            UpdateRotation();
+
+            if (transform.position.y < minGameWorldY)
+            {
+                Die();
+            }
+        }
     }
 
     private void UpdateMove()
@@ -154,15 +181,9 @@ public class Player : MonoBehaviour, IFallingObject
     {
         if (Input.GetKey(KeyCode.R))
         {
-            Respawn();
+            ResetPlayer();
+            GoToRespawnPoint(false);
         }
-    }
-
-    private void Respawn()
-    {
-        transform.position = respawnPoint;
-        jump.ResetJump();
-        Health = maxHealth;
     }
 
     public void HealToFull()
@@ -193,12 +214,66 @@ public class Player : MonoBehaviour, IFallingObject
 
     private void Die()
     {
-        Respawn();
+        //if (Health == 0)
+        //{
+        //    ShowOrHide(false);
+        //}
+
+        Health = 0;
+        jump.ResetJump();
+        Moving = false;
+        animator.Play("Death");
+        JustDied = true;
+        //transform.position = respawnPoint;
+    }
+
+    private void UpdateDeath()
+    {
+        elapsedDeathTime += Time.deltaTime;
+        if (JustDied && elapsedDeathTime >= 0.75f * deathTime)
+        {
+            GoToRespawnPoint(true);
+            JustDied = false;
+        }
+        else if (!JustDied && elapsedDeathTime >= deathTime)
+        {
+            ResetPlayer();
+        }
+    }
+
+    private void ResetPlayer()
+    {
+        //if (!JustDied)
+        //{
+        //    GoToRespawnPoint();
+        //}
+
+        //GoToRespawnPoint();
+        jump.ResetJump();
+        Health = maxHealth;
+        JustDied = false;
+        elapsedDeathTime = 0;
+    }
+
+    private void GoToRespawnPoint(bool playAnimation)
+    {
+        transform.position = respawnPoint;
+
+        if (playAnimation)
+            animator.Play("Respawn");
+    }
+
+    private void ShowOrHide(bool show)
+    {
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.enabled = show;
+        }
     }
 
     private void PlayWalkSound()
     {
-        if (fall.IsOnFloor && !jump.IsJumping)
+        if (fall.IsOnFloor && !jump.IsJumping && !IsDead)
         {
             SFXPlayer.Instance.Play(Sound.Walk, volumeFactor: 0.4f, pitch: Random.Range(0.85f, 1.15f));
         }

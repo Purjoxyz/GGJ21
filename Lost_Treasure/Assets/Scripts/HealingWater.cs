@@ -13,7 +13,7 @@ public class HealingWater : MonoBehaviour
         {
             Player player = other.transform.parent.GetComponent<Player>();
 
-            if (player != null)
+            if (player != null && !player.IsDead)
             {
                 if (isRespawnPoint)
                 {

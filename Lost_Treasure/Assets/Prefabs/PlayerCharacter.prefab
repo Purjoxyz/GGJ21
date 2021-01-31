@@ -440,6 +440,8 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 200
   maxHealth: 3
+  minGameWorldY: -10
+  deathTime: 3
 --- !u!114 &6981125314285220386
 MonoBehaviour:
   m_ObjectHideFlags: 0
